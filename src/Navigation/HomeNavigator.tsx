@@ -1,7 +1,12 @@
 import React from 'react';
 const TabNavigator = createBottomTabNavigator();
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {MomentsScreen, MessagesScreen, ProfileScreen, ChatSreen} from '../Screens';
+import {
+  MomentsScreen,
+  MessagesScreen,
+  ProfileScreen,
+  ChatSreen,
+} from '../Screens';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AddPost from '../Screens/AddPost';
 

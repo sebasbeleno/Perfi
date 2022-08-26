@@ -1,8 +1,7 @@
 import firestore, {
   FirebaseFirestoreTypes,
 } from '@react-native-firebase/firestore';
-
-import {MessageType, userType} from '../types';
+import {userType} from '../types';
 import UserService from './UserService';
 
 class MessagesService {
@@ -17,7 +16,7 @@ class MessagesService {
     return usersArray;
   }
 
-  async fetchMessages(): Promise<{[key: string]: MessageType[]}> {
+  async fetchMessages() {
     const messages = await this.messagesRef
       .orderBy('created_at', 'desc')
       .limit(10)

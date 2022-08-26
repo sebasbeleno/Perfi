@@ -15,13 +15,9 @@ import BackArrow from '../../Icons/BackArrow';
 import MessageForm from './Components/MessageForm';
 import Message from './Components/Message';
 import {Store} from '../../Redux/Store';
-import {MessageType} from '../../types';
+import {MessageType, userType} from '../../types';
 import firestore from '@react-native-firebase/firestore';
 import {addMessage} from '../../Redux/Messages/reducer';
-import MessagesService from '../../Services/MessagesService';
-import {selectMessagesByUid} from '../../Redux/Messages/selectors';
-import {useSelector} from 'react-redux';
-import Auth from '@react-native-firebase/auth';
 
 // Render arrow back button and contact name
 const Header = ({
@@ -29,9 +25,9 @@ const Header = ({
   navigation,
   photoURL,
 }: {
-  name: string;
+  name: string | null;
+  photoURL: string | null;
   navigation: any;
-  photoURL: string;
 }) => {
   const handleBack = () => {
     navigation.goBack();
@@ -54,26 +50,23 @@ const Header = ({
   );
 };
 
-const ContactAvatar = ({photoUrl}: {photoUrl: string}) => {
-  return (
-    <View style={styles.avatarContainer}>
-      <Image source={{uri: photoUrl}} style={styles.avatar} />
-    </View>
-  );
+const ContactAvatar = ({photoUrl}: {photoUrl: string | null}) => {
+  if (photoUrl) {
+    return (
+      <View style={styles.avatarContainer}>
+        <Image source={{uri: photoUrl}} style={styles.avatar} />
+      </View>
+    );
+  } else {
+    return null;
+  }
 };
 
 const ChatScreen = (props: any) => {
-  const [contact, setContact] = useState({});
+  const [contact, setContact] = useState<userType>();
   const [loading, setLoading] = useState(true);
   const [messages, setMessages] = useState<MessageType[]>([]);
-
-  console.log(Store.getState().auth);
-  useEffect(() => {
-    const _messages = Store.getState().messages.messages;
-    const _contactMessages = _messages;
-    console.log(_contactMessages);
-    setMessages(_contactMessages);
-  }, [loading, props.route.params]);
+  const [currentUser, setCurrentUser] = useState<userType>();
 
   useEffect(() => {
     const FetchData = async () => {
@@ -86,12 +79,22 @@ const ChatScreen = (props: any) => {
         setLoading(false);
       } else {
         props.navigation.goBack();
+        return;
       }
     };
 
-    FetchData();
-  }, [false]);
+    const storeUser = Store.getState().auth.user;
 
+    if (storeUser) {
+      setCurrentUser(storeUser);
+    } else {
+      props.navigation.goBack();
+    }
+
+    FetchData();
+  }, [props.navigation, props.route.params.uid]);
+
+  // Useeffect to listen to messages changes
   useEffect(() => {
     const subscriber = firestore()
       .collection('messages')
@@ -110,15 +113,7 @@ const ChatScreen = (props: any) => {
 
     // Stop listening for updates when no longer required
     return () => subscriber();
-  }, [false]);
-
-  useEffect(() => {
-    console.log('has un update');
-    setTimeout(() => {
-      const _messages = Store.getState().messages.messages;
-      setMessages(_messages);
-    }, 500);
-  }, [Store.getState().messages.messages]);
+  }, []);
 
   if (loading) {
     return (
@@ -132,37 +127,35 @@ const ChatScreen = (props: any) => {
     );
   }
 
+  if (!currentUser || !contact) {
+    props.navigation.goBack();
+    return null;
+  }
+
   return (
-    <View>
-      <SafeAreaView style={{justifyContent: 'space-between'}}>
-        <Header
-          name={contact.name}
-          navigation={props.navigation}
-          photoURL={contact.photoURL}
-        />
-        <View style={{height: Sizing.screen.height / 1.4}}>
-          <View>
-            <FlatList
-              inverted
-              // eslint-disable-next-line react-hooks/rules-of-hooks
-              data={messages}
-              keyExtractor={function (item) {
-                return item.id;
-              }}
-              renderItem={function ({item}) {
-                console.log(item.message);
-                const side =
-                  item.user_id === Store.getState().auth.user?.uid
-                    ? 'right'
-                    : 'left';
-                return <Message message={item.message} side={side} />;
-              }}
-            />
-          </View>
-        </View>
-        <MessageForm uid={Store.getState().auth.user?.uid} />
-      </SafeAreaView>
-    </View>
+    <SafeAreaView>
+      <Header
+        name={contact.name}
+        navigation={props.navigation}
+        photoURL={contact.photoURL}
+      />
+      <FlatList
+        inverted
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        data={messages}
+        keyExtractor={function (item) {
+          return item.created_at + '';
+        }}
+        contentContainerStyle={{height: '95%'}}
+        renderItem={function ({item}) {
+          console.log(item.message);
+          const side =
+            item.user_id === Store.getState().auth.user?.uid ? 'right' : 'left';
+          return <Message message={item.message} side={side} />;
+        }}
+      />
+      <MessageForm uid={currentUser?.uid} />
+    </SafeAreaView>
   );
 };
 
@@ -171,8 +164,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 20,
-    paddingVertical: 10,
     alignContent: 'center',
+    height: '5%',
   },
   ScreenName: {
     ...fontWeight.bold,

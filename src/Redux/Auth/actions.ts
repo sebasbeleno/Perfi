@@ -3,7 +3,6 @@ import {userType} from '../../types';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import UserService from '../../Services/UserService';
 
 GoogleSignin.configure({
   webClientId:

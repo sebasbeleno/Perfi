@@ -5,8 +5,8 @@ import {navigate} from '../../../Navigation';
 
 interface ContactCardProps {
   uid: string;
-  displayName: string;
-  photoURL: string;
+  displayName: string | null;
+  photoURL: string | null;
 }
 
 const ContactProfilePhoto = ({photoURL}: any) => {

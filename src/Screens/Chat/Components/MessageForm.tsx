@@ -13,8 +13,6 @@ const MessageForm = (props: MessageFormProps) => {
   const [inputHeigth, setInputHeigth] = useState(0);
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
 
   const onSend = useCallback(
     function () {
@@ -54,13 +52,10 @@ const MessageForm = (props: MessageFormProps) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    alignItems: 'center',
-    alignContent: 'center',
-    flex: 1,
-    backgroundColor: Colors.neutral.s200,
-    height: Sizing.x40,
-    width: '100%',
+    justifyContent: 'space-between',
+    backgroundColor: Colors.neutral.s100,
     paddingHorizontal: 10,
+    minHeight: '10%',
   },
   input: {
     height: Sizing.x40,

@@ -3,7 +3,13 @@ import {View, Text} from 'react-native';
 
 import {styles, flattenedStyles} from '../../../Styles';
 
-export default function Message({message, side}) {
+export default function Message({
+  message,
+  side,
+}: {
+  message: string;
+  side: string;
+}) {
   const isLeftSide = side === 'left';
 
   const containerStyles = isLeftSide

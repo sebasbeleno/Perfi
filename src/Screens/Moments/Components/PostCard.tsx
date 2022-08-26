@@ -8,7 +8,6 @@ interface PostCardProps {
   createdAt: number;
   authorId: string;
   id: string;
-  likes: number;
   content: string;
   avatar: string;
 }
@@ -35,27 +34,20 @@ const CardContent = ({content}: any) => {
   );
 };
 
-const CardFooter = ({likes}: any) => {
+const CardFooter = () => {
   return (
     <View style={Styles.CardFooter}>
-      <Text style={Styles.likes}>{likes} likes</Text>
+      <Text style={Styles.likes}>heart</Text>
     </View>
   );
 };
 
-const PostCard = ({
-  author,
-  content,
-  avatar,
-  createdAt,
-  likes,
-  id,
-}: PostCardProps) => {
+const PostCard = ({author, content, avatar, createdAt, id}: PostCardProps) => {
   return (
     <View style={Styles.container} key={id}>
       <CardHader author={author} createdAt={createdAt} avatar={avatar} />
       <CardContent content={content} />
-      <CardFooter likes={likes} />
+      <CardFooter />
     </View>
   );
 };

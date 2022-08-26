@@ -14,14 +14,14 @@ const MessagesScreen = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const as = async () => {
+    const fetContactList = async () => {
       Store.dispatch(loadMessages());
       const ContactList_ = await MessagesService.getContactList();
       setContactList(ContactList_);
       setLoading(false);
     };
 
-    as();
+    fetContactList();
   }, []);
 
   if (loading) {

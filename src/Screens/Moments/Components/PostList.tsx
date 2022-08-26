@@ -1,23 +1,17 @@
 import React from 'react';
-import {StyleSheet, FlatList, Text} from 'react-native';
+import {StyleSheet, FlatList} from 'react-native';
 import {Typography} from '../../../Styles';
 import {PostType} from '../../../types';
 import PostCard from './PostCard';
 
+const DEFAULT_AVATAR =
+  'https://icon-library.com/images/yellow-discord-icon/yellow-discord-icon-6.jpg';
 interface PostProps {
   posts: PostType[];
   onRefresh: () => void;
   isFetching: boolean;
 }
-
 const PostList = (props: PostProps) => {
-  const EmptyListMessage = () => {
-    return (
-      // Flat List Item
-      <Text style={Styles.emptyListStyle}>No Data Found</Text>
-    );
-  };
-
   return (
     <FlatList
       style={Styles.container}
@@ -27,13 +21,12 @@ const PostList = (props: PostProps) => {
       /* ListEmptyComponent={EmptyListMessage} */
       renderItem={({item}) => (
         <PostCard
-          author={item.user.name}
+          author={item.user.name || ''}
           content={item.content}
           createdAt={item.createdAt}
           authorId={''}
           id={item.id}
-          likes={item.likes}
-          avatar={item.user.photoURL}
+          avatar={item.user.photoURL || DEFAULT_AVATAR}
           key={item.id}
         />
       )}
