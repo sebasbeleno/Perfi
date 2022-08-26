@@ -19,7 +19,11 @@ const MomentsScreen = (props: any) => {
 
   const firstLoad = () => {
     Store.dispatch(loadPosts());
-    setPosts(Store.getState().posts.posts);
+    const Posts = Store.getState().posts.posts;
+
+    if (Posts.length > 0) {
+      setPosts(Posts);
+    }
   };
 
   const onRefresh = async () => {

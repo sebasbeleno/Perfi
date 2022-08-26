@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import {Colors, Sizing, Typography} from '../../../Styles';
+import moment from 'moment';
 
 interface PostCardProps {
   author: string;
@@ -13,12 +14,14 @@ interface PostCardProps {
 }
 
 const CardHader = ({author, createdAt, avatar}: any) => {
+  const TimeAgo = moment(createdAt).fromNow();
+
   return (
     <View style={Styles.CardHader}>
       <Image source={{uri: avatar}} style={Styles.avatar} />
       <View style={{marginLeft: Sizing.x5}}>
         <Text style={Styles.author}>{author}</Text>
-        <Text style={Styles.timeAgo}>{createdAt}</Text>
+        <Text style={Styles.timeAgo}>{TimeAgo}</Text>
       </View>
     </View>
   );
