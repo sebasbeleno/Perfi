@@ -3,6 +3,7 @@ import {userType} from '../../types';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import UserService from '../../Services/UserService';
 
 GoogleSignin.configure({
   webClientId:
@@ -32,9 +33,30 @@ export const GoogleSignIn = createAsyncThunk(types.GOOGLE_SIGN_IN, async () => {
     // Sign-in the user with the credential
     const fire = await auth().signInWithCredential(googleCredential);
 
+    // check if the user exists in the database
+
+    /* const user: userType = {
+      name: fire.user.displayName,
+      uid: fire.user.uid,
+      photoURL: fire.user.photoURL,
+    };
+
+    UserService.signInUser(user); */
+
+    // return the user
     return fire;
   } catch (error) {
     console.log('error', error);
     return error;
+  }
+});
+
+export const signOutUser = createAsyncThunk(types.SIGN_OUT_USER, async () => {
+  try {
+    await auth().signOut();
+    return true;
+  } catch (error) {
+    console.log('error', error);
+    return false;
   }
 });

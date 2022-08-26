@@ -11,7 +11,6 @@ import {GoogleSignIn} from '../../Redux/Auth/actions';
 import {Store} from '../../Redux/Store';
 
 const SignInScreen = () => {
-  console.log(Store.getState());
   const handleGooogleAuth = () => {
     Store.dispatch(GoogleSignIn());
   };

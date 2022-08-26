@@ -1,6 +1,6 @@
 import {userType} from '../../types';
 import {createSlice} from '@reduxjs/toolkit';
-import {GoogleSignIn} from './actions';
+import {GoogleSignIn, signOutUser} from './actions';
 
 const initialState: {
   isSignedIn: boolean | undefined;
@@ -39,6 +39,10 @@ export const AuthSlice = createSlice({
     });
     builder.addCase(GoogleSignIn.rejected, (state, action) => {
       console.log('GoogleSignIn.rejected', action.payload);
+    });
+    builder.addCase(signOutUser.fulfilled, (state, action) => {
+      state.user = undefined;
+      state.isSignedIn = false;
     });
   },
 });

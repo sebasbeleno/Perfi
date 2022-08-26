@@ -1,7 +1,7 @@
 import React from 'react';
 const TabNavigator = createBottomTabNavigator();
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {MomentsScreen, MessagesScreen, ProfileScreen} from '../Screens';
+import {MomentsScreen, MessagesScreen, ProfileScreen, ChatSreen} from '../Screens';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AddPost from '../Screens/AddPost';
 
@@ -23,6 +23,18 @@ const FeedNavigator = () => {
   );
 };
 
+const MessagesNavigator = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Stack.Screen name="Contacts" component={MessagesScreen} />
+      <Stack.Screen name="Chat" component={ChatSreen} />
+    </Stack.Navigator>
+  );
+};
+
 const HomeNavigator = () => {
   return (
     <TabNavigator.Navigator>
@@ -34,7 +46,7 @@ const HomeNavigator = () => {
       <TabNavigator.Screen
         options={{headerShown: false}}
         name="Messages"
-        component={MessagesScreen}
+        component={MessagesNavigator}
       />
       <TabNavigator.Screen
         options={{headerShown: false}}

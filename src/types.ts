@@ -11,3 +11,9 @@ export interface PostType {
   createdAt: number;
   likes: [];
 }
+
+export interface MessageType {
+  user_id: string;
+  message: string;
+  created_at: number;
+}
