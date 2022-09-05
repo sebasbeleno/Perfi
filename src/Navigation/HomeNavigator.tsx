@@ -6,6 +6,7 @@ import {
   MessagesScreen,
   ProfileScreen,
   ChatSreen,
+  NotificationsScreen,
 } from '../Screens';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AddPost from '../Screens/AddPost';
@@ -20,6 +21,11 @@ const FeedNavigator = () => {
       }}>
       <Stack.Group>
         <Stack.Screen name="Moments" component={MomentsScreen} />
+        <Stack.Screen
+          options={{headerShown: true}}
+          name="Notifications"
+          component={NotificationsScreen}
+        />
       </Stack.Group>
       <Stack.Group screenOptions={{presentation: 'modal'}}>
         <Stack.Screen name="AddPost" component={AddPost} />

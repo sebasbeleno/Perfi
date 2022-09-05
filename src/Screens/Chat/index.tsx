@@ -148,7 +148,6 @@ const ChatScreen = (props: any) => {
         }}
         contentContainerStyle={{height: '95%'}}
         renderItem={function ({item}) {
-          console.log(item.message);
           const side =
             item.user_id === Store.getState().auth.user?.uid ? 'right' : 'left';
           return <Message message={item.message} side={side} />;

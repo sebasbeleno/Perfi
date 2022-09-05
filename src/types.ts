@@ -17,3 +17,11 @@ export interface MessageType {
   message: string;
   created_at: number;
 }
+
+export interface NotificationType {
+  id: string;
+  message: string;
+  created_at: number;
+  uid: string;
+  data: any;
+}

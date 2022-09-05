@@ -1,3 +1,4 @@
 import PostsService from './PostsService';
+import NotificationsService from './NotificationsService';
 
-export {PostsService};
+export {PostsService, NotificationsService};

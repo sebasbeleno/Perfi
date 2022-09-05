@@ -41,7 +41,7 @@ const MomentsScreen = (props: any) => {
     <View style={Styles.container}>
       <SafeAreaView>
         <Text>{Store.getState().posts.loading}</Text>
-        <HeadBar />
+        <HeadBar navigation={props.navigation} />
       </SafeAreaView>
       <Feed posts={posts} isFetching={isFetching} onRefresh={onRefresh} />
       <TouchableHighlight

@@ -1,5 +1,6 @@
 import database from '@react-native-firebase/database';
 import {PostType} from '../types';
+import NotificationsService from './NotificationsService';
 
 class PostsService {
   private postsRef = database().ref('posts');
@@ -24,6 +25,12 @@ class PostsService {
 
   // Add a new post to the database
   public async addPost(post: PostType) {
+    const message = `New post from ${post.user.name}`;
+    const data = {
+      description: post.content,
+      postId: post.id,
+    };
+    NotificationsService.createNotification(message, post.user.uid, data);
     return this.postsRef.push(post);
   }
 }
