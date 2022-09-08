@@ -30,7 +30,9 @@ class UserService {
   public async getUser(uid: string) {
     const snapshot = await this.usersRef.child(uid).once('value');
 
-    return snapshot.val();
+    const value = await snapshot.val();
+
+    return value;
   }
 
   // get all the users from the database
@@ -38,6 +40,10 @@ class UserService {
     const snapshot = await this.usersRef.once('value');
 
     return snapshot.val();
+  }
+
+  async updateUser(user: userType) {
+    return this.usersRef.child(user.uid).update(user);
   }
 }
 

@@ -2,6 +2,9 @@ export interface userType {
   uid: string;
   photoURL: string | null;
   name: string | null;
+  age: number | null;
+  position: string | null;
+  phone: string | null;
 }
 
 export interface PostType {
