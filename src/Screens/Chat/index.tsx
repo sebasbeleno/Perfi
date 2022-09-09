@@ -146,7 +146,7 @@ const ChatScreen = (props: any) => {
         keyExtractor={function (item) {
           return item.created_at + '';
         }}
-        contentContainerStyle={{height: '95%'}}
+        contentContainerStyle={{height: '92%'}}
         renderItem={function ({item}) {
           const side =
             item.user_id === Store.getState().auth.user?.uid ? 'right' : 'left';

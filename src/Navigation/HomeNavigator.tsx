@@ -10,6 +10,10 @@ import {
 } from '../Screens';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AddPost from '../Screens/AddPost';
+import HomeIcons from '../Icons/HomeIcon';
+import {Colors} from '../Styles';
+import Messagesicons from '../Icons/MessagesIcon';
+import ProfileIcon from '../Icons/Profile';
 
 const Stack = createNativeStackNavigator();
 
@@ -41,7 +45,6 @@ const MessagesNavigator = () => {
         headerShown: false,
       }}>
       <Stack.Screen name="Contacts" component={MessagesScreen} />
-      <Stack.Screen name="Chat" component={ChatSreen} />
     </Stack.Navigator>
   );
 };
@@ -50,17 +53,38 @@ const HomeNavigator = () => {
   return (
     <TabNavigator.Navigator>
       <TabNavigator.Screen
-        options={{headerShown: false}}
+        options={{
+          headerShown: false,
+          title: 'Home',
+          tabBarIcon: ({size, focused}) => {
+            const _color = focused ? Colors.primary.brand : '#ccc';
+            return <HomeIcons color={_color} size={size} />;
+          },
+        }}
         name="Feed"
         component={FeedNavigator}
       />
       <TabNavigator.Screen
-        options={{headerShown: false}}
+        options={{
+          headerShown: false,
+          title: 'Messages',
+          tabBarIcon: ({size, focused}) => {
+            const _color = focused ? Colors.primary.brand : '#ccc';
+            return <Messagesicons color={_color} size={size} />;
+          },
+        }}
         name="Messages"
         component={MessagesNavigator}
       />
       <TabNavigator.Screen
-        options={{headerShown: false}}
+        options={{
+          headerShown: false,
+          title: 'Profile',
+          tabBarIcon: ({size, focused}) => {
+            const _color = focused ? Colors.primary.brand : '#ccc';
+            return <ProfileIcon color={_color} size={size} />;
+          },
+        }}
         name="Profile"
         component={ProfileScreen}
       />

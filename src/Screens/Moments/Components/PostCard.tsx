@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import {Colors, Sizing, Typography} from '../../../Styles';
 import moment from 'moment';
+import HeartIcon from '../../../Icons/HeartIcon';
 
 interface PostCardProps {
   author: string;
@@ -37,7 +38,7 @@ const CardContent = ({content}: any) => {
 const CardFooter = () => {
   return (
     <View style={Styles.CardFooter}>
-      <Text style={Styles.likes}>heart</Text>
+      <HeartIcon size={Sizing.icons.x20} color={Colors.primary.brand} />
     </View>
   );
 };
@@ -86,6 +87,7 @@ const Styles = StyleSheet.create({
   },
   CardFooter: {
     marginTop: Sizing.x10,
+    flexDirection: 'row',
   },
   likes: {
     ...Typography.fontWeight.regular,
