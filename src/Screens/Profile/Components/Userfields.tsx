@@ -67,8 +67,6 @@ const UserFields = (props: UserFieldsProps) => {
 
   const onChangeField = (value: string, label: string) => {
     setValues({...values, [label]: value});
-
-    console.log(values);
   };
 
   const handleUpdateProfile = async () => {

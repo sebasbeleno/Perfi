@@ -43,18 +43,6 @@ class MessagesService {
       message.created_at = new Date(message.created_at.seconds * 1000);
       return message;
     });
-    /* 
-    const messagesObject = messagesArray.reduce((acc, message) => {
-      if (!acc[message.user_id]) {
-        acc[message.user_id] = [];
-      }
-      acc[message.user_id].push(message);
-      return acc;
-    }, {} as {[key: string]: MessageType[]});
-
-    return messagesObject; */
-
-    console.log('messagesArray', messagesArray);
     return messagesArray;
   }
 }

@@ -21,7 +21,6 @@ export const MessagesSlice = createSlice({
   initialState: initialState,
   reducers: {
     addMessage(state, action: PayloadAction<MessageType[]>) {
-      console.log('addMessage', action.payload);
       state.messages = action.payload;
     },
   },
@@ -30,7 +29,6 @@ export const MessagesSlice = createSlice({
       state.messages = action.payload;
     });
     builder.addCase(createMessage.fulfilled, (state, action) => {
-      console.log('createMessage.fulfilled', action.payload);
       state.loading = 'succeeded';
     });
     builder.addCase(createMessage.rejected, (state, action) => {
@@ -38,7 +36,6 @@ export const MessagesSlice = createSlice({
       state.loading = 'failed';
     });
     builder.addCase(createMessage.pending, (state, action) => {
-      console.log('createMessage.pending', action.payload);
       state.loading = 'pending';
     });
     builder.addCase(loadMessages.rejected, (state, action) => {

@@ -5,7 +5,6 @@ import MessagesService from '../../Services/MessagesService';
 export const loadMessages = createAsyncThunk(types.LOAD_MESSAGES, async () => {
   try {
     const messages = await MessagesService.fetchMessages();
-    console.log('loadMessages', messages);
     if (messages) {
       return messages;
     } else {

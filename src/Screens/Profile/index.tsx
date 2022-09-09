@@ -24,7 +24,6 @@ const ProfileScreen = () => {
       const _user = await UserService.getUser(uid);
       setUser(_user);
       setLoading(false);
-      console.log('AAAAAAAAAA', _user);
     } else {
       console.log('No user');
     }

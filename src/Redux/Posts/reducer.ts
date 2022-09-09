@@ -26,12 +26,9 @@ export const PostsSlice = createSlice({
   },
   extraReducers: builder => {
     builder.addCase(loadPosts.fulfilled, (state, action) => {
-      console.log('loadPosts.fulfilled', action.payload);
       state.posts = action.payload;
     });
     builder.addCase(addPost.fulfilled, (state, action) => {
-      // call get posts again
-      console.log('addPost.fulfilled', action.payload);
       state.loading = 'succeeded';
     });
     builder.addCase(addPost.rejected, (state, action) => {
@@ -39,7 +36,6 @@ export const PostsSlice = createSlice({
       state.loading = 'failed';
     });
     builder.addCase(addPost.pending, (state, action) => {
-      console.log('addPost.pending', action.payload);
       state.loading = 'pending';
     });
     builder.addCase(loadPosts.rejected, (state, action) => {
